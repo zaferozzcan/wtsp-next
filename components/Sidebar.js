@@ -17,7 +17,7 @@ export default function Sidebar() {
   return (
     <Container>
       <Header>
-        <UserAvatar />
+        <UserAvatar>X</UserAvatar>
         <IconsContainer>
           <IconButton>
             <ChatIcon />

@@ -1,11 +1,17 @@
 import { Circle } from "better-react-spinkit";
+const img_url =
+  "https://www.nicepng.com/png/detail/12-121689_phone-logo-phone-png.png";
+const styles = {
+  display: "grid",
+  placeItem: "center",
+};
 
 export default function Loading() {
   return (
     <center>
       <div>
         <img
-          src={img_url}
+          src={img_url && img_url}
           style={{ marginBottom: 10, borderRadius: "50%" }}
           height={200}
         ></img>
@@ -14,10 +20,3 @@ export default function Loading() {
     </center>
   );
 }
-
-const img_url =
-  "https://www.nicepng.com/png/detail/12-121689_phone-logo-phone-png.png";
-const styles = {
-  display: "grid",
-  placeItem: "center",
-};
