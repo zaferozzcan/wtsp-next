@@ -1,14 +1,18 @@
 import styled from "styled-components";
 import Head from "next/head";
 import ChatScreen from "../../components/ChatScreen";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { db, auth } from "../../firebase";
 
-export default function Chat() {
+export default function Chat({ chat, messages }) {
+  const [user] = useAuthState(auth);
   return (
     <Container>
       <Head>
-        <title>Chat</title>
+        <title>Chat with {user}</title>
       </Head>
       <ChatContainer>
+        hello
         <ChatScreen />
       </ChatContainer>
     </Container>
@@ -21,7 +25,7 @@ export async function getServerSideProps(context) {
   //   messages on the server
   const messagesRes = await ref
     .collection("messages")
-    .order("timestamp", "asc")
+    .orderBy("timestamp", "asc")
     .get();
 
   const messages = messagesRes.docs
@@ -30,6 +34,18 @@ export async function getServerSideProps(context) {
       ...messages,
       timestamp: messages.timestamp.toDate().getTime(),
     }));
+
+  const chatRes = await ref.get();
+  const chat = {
+    id: chatRes.id,
+    ...chatRes.data(),
+  };
+  return {
+    props: {
+      messages: JSON.stringify(messages),
+      chat: chat,
+    },
+  };
 }
 
 const Container = styled.div`
