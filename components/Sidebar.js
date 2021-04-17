@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Chat from "../components/Chat";
 import { Avatar, IconButton, Button } from "@material-ui/core";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import ChatIcon from "@material-ui/icons/Chat";
@@ -54,7 +55,9 @@ export default function Sidebar() {
         <SearchInput placeholder="Search in chats" />
       </Search>
       <SideBarButton onClick={createChat}>Start New Chat</SideBarButton>
-      {/* user comps */}
+      {chatSnapshot?.docs.map((chat) => (
+        <Chat key={chat.id} id={chat.id} user={chat.data().users[1]} />
+      ))}
     </Container>
   );
 }
